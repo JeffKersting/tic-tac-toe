@@ -1,0 +1,48 @@
+.game-page{
+  display: grid;
+  margin: auto;
+  grid-template-columns: 25% 50% 25%;
+  height: 50em;
+  align-items: flex-start;
+}
+span{
+  display: flex;
+  flex-direction: column;
+  background-color: lightgreen;
+  align-items: center;
+}
+.player-info{
+  background-color: darkgreen;
+  height: 100%;
+}
+.player-one-info{
+  grid-column-start: 1;
+}
+.game-board{
+  grid-column-start: 2;
+  justify-content: center;
+}
+.player-two-info{
+  grid-column-start: 3;
+}
+h1{
+  background-color: red;
+  justify-content: center;
+}
+.player-score{
+  background-color: black;
+}
+.game-grid{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 36em;
+  width: 36em;
+  background-color: lightyellow;
+}
+.game-section{
+  height:11.5em;
+  width: 11.5em;
+  background-color: lightblue;
+}
