@@ -4,15 +4,23 @@ html{
 .start-page{
   height: 50em;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: blue;
   position: absolute;
   margin: auto;
+}
+.start-button{
+
 }
 .game-page{
   display: grid;
   margin: auto;
   grid-template-columns: 25% 50% 25%;
   height: 50em;
+  width: 100%;
   align-items: flex-start;
   position: absolute;
 }
