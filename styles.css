@@ -1,0 +1,99 @@
+html{
+  background-color: darkgreen;
+}
+.start-page{
+  height: 50em;
+  width: 100%;
+  background-color: blue;
+  position: absolute;
+  margin: auto;
+}
+.game-page{
+  display: grid;
+  margin: auto;
+  grid-template-columns: 25% 50% 25%;
+  height: 50em;
+  align-items: flex-start;
+  position: absolute;
+}
+span{
+  display: flex;
+  flex-direction: column;
+  background-color: lightgreen;
+  align-items: center;
+}
+.player-info{
+  background-color: darkgreen;
+  height: 100%;
+}
+.player-one-info{
+  grid-column-start: 1;
+}
+.player{
+  height: 2em;
+  width: 2em;
+  position: relative;
+}
+.x-half-one{
+  height:2em;
+  width: .4em;
+  transform: rotateY(0deg) rotate(40deg);
+  background-color: black;
+  position: absolute;
+}
+.x-half-two{
+  height:2em;
+  width: .4em;
+  transform: rotateY(0deg) rotate(-40deg);
+  background-color: black;
+  position: absolute;
+}
+.o-half-one{
+  height:2em;
+  width: 2em;
+  border-radius: 1em;
+  background-color: black;
+  position: absolute;
+}
+.o-half-two{
+  height:1.2em;
+  width: 1.2em;
+  border-radius: 1em;
+  background-color: darkgreen;
+  position: absolute;
+  margin-left: .4em;
+  margin-top: .4em;
+}
+.game-board{
+  grid-column-start: 2;
+  justify-content: center;
+}
+.player-two-info{
+  grid-column-start: 3;
+}
+h1{
+  background-color: red;
+  justify-content: center;
+  height: 2em;
+  width: auto;
+}
+.player-score{
+  background-color: black;
+}
+.game-grid{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 36em;
+  width: 36em;
+  background-color: lightyellow;
+}
+.game-section{
+  height:11.5em;
+  width: 11.5em;
+  background-color: lightblue;
+}
+.hidden{
+  display: none;
+}
