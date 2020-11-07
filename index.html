@@ -7,14 +7,38 @@
   </head>
   <body>
     <span class="start-page">
-      <button class="start-button">Submit</button>
+      <span class="welcome-message">WELCOME TO TIC-TAC-TOE</span>
+      <form class="start-select create-new-player" action="index.html" method="post">Create a player!
+        <br>
+        <input type="text" id="player-name" placeholder="Enter your name">
+        <br><br>
+        <select id="player-symbol">
+          <option selected disabled>Choose your symbol</option>
+          <option value="spade">&#9824; Spade</option>
+          <option value="club">&#9827; Club</option>
+          <option value="heart">&#9829; Heart</option>
+          <option value="diamond">&#9830; Diamond</option>
+          <option value="x">&#935; X</option>
+          <option value="o">	&#927; O</option>
+          <option value="omega">	&#937; Omega</option>
+          <option value="yen">	&#165; Yen</option>
+        </select>
+        <br><br>
+        <button class="start-button">Create Player!</button>
+      </form>
+      <br><br>
+      <form class="start-select choose-existing-player">
+        <p class="select-existing-player">Choose an existing player!</p>
+          <select>
+            <option selected disabled>Select a player!</option>
+          </select>
+          <br><br>
+          <button class="start-button">Choose player!</button>
+      </form>
     </span>
     <span class="game-page hidden">
       <span class ="player-info player-one-info">
-        <h2 class="player player-one">
-          <div class="x-half-one"></div>
-          <div class="x-half-two"></div>
-        </h2>
+        <h2 class="player player-one"></h2>
         <h1 class="player-one-score"></h1>
         <span class="player-score player-one-wins"></span>
       </span>
@@ -33,10 +57,7 @@
         </div>
       </span>
       <span class ="player-info player-two-info">
-        <h2 class="player player-two">
-          <div class="o-half-one"></div>
-          <div class="o-half-two"></div>
-        </h2>
+        <h2 class="player player-two"></h2>
         <h1 class="player-two-score"></h1>
         <span class="player-score player-two-wins"></span>
       </span>

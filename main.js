@@ -4,7 +4,8 @@ var startButton = document.querySelector(".start-button");
 
 startButton.addEventListener("click", clearStartPage);
 
-function clearStartPage(){
+function clearStartPage(event){
+  event.preventDefault();
   startPage.classList.add("hidden");
   gamePage.classList.remove("hidden");
 }
