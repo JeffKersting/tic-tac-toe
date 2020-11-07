@@ -39,6 +39,7 @@ function createNewPlayer(){
   var playerName = newPlayerName.value;
   var playerSymbol = newPlayerSymbol.value;
   var newPlayer = new Player(Date.now(), playerName, playerSymbol, 0);
+  currentGame.addPlayer(newPlayer);
   populatePlayerArea(newPlayer);
   newPlayer.saveToStorage();
   return newPlayer;
@@ -65,6 +66,9 @@ function eventTargetIdentifier(event){
     var existingPlayer = createPlayerFromStorage(playerKey);
     currentGame.addPlayer(existingPlayer);
     populatePlayerArea(existingPlayer);
+  } else if(target.classList.contains("game-section")){
+    currentGame.playerTurn(parseInt(target.id));
+
   }
 }
 
