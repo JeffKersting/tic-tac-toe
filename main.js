@@ -10,6 +10,8 @@ var playerOneNameDisplay = document.querySelector(".player-one");
 var playerOneScoreDisplay = document.querySelector(".player-one-score");
 var playerTwoNameDisplay = document.querySelector(".player-two");
 var playerTwoScoreDisplay = document.querySelector(".player-two-score");
+var gameStateDisplay = document.querySelector(".game-state");
+var currentGame = new Game();
 
 pageWindow.addEventListener("click", eventTargetIdentifier);
 document.onload = onLoad();
@@ -39,6 +41,7 @@ function createNewPlayer(){
   var newPlayer = new Player(Date.now(), playerName, playerSymbol, 0);
   populatePlayerArea(newPlayer);
   newPlayer.saveToStorage();
+  return newPlayer;
 }
 
 function createPlayerOption(existingPlayer){
@@ -56,25 +59,27 @@ function eventTargetIdentifier(event){
   event.preventDefault();
   var target = event.target;
   if(target.classList.contains("create-new-player")){
-    createNewPlayer();
+    currentGame.addPlayer(createNewPlayer())
   } else if(target.classList.contains("choose-existing-player")){
     var playerKey = existingPlayerSelection.value;
     var existingPlayer = createPlayerFromStorage(playerKey);
+    currentGame.addPlayer(existingPlayer);
     populatePlayerArea(existingPlayer);
   }
 }
 
 function populatePlayerArea(playerData){
-  if(parseInt(playerSelectStatus.id) === 0){
-    playerOneNameDisplay.innerText = `${playerData.name} ${playerData.token}`;
-    playerOneScoreDisplay.innerText = `${playerData.wins} wins`;
+    if(currentGame.currentTurn === 0){
+    playerOneNameDisplay.innerText = `${currentGame.playerOne.name} ${currentGame.playerOne.token}`;
+    playerOneScoreDisplay.innerText = `${currentGame.playerOne.wins} wins`;
     playerSelectStatus.innerText = "Player Two: Create new player or select from saved";
-    playerSelectStatus.id = 1;
+    currentGame.currentTurn = 1;
+    gameStateDisplay.innerText = `${currentGame.playerOne.name}'s Turn!`
   } else {
-    playerTwoNameDisplay.innerText = `${playerData.name} ${playerData.token}`;
-    playerTwoScoreDisplay.innerText = `${playerData.wins} wins`;
+    playerTwoNameDisplay.innerText = `${currentGame.playerTwo.name} ${currentGame.playerTwo.token}`;
+    playerTwoScoreDisplay.innerText = `${currentGame.playerTwo.wins} wins`;
     playerSelectStatus.innerText = "Player One: Create new player or select from saved";
-    playerSelectStatus.id = 0;
+    currentGame.currentTurn = 0;
     clearStartPage();
   }
 }
