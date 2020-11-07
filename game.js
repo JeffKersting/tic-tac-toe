@@ -1,7 +1,6 @@
 class Game{
   constructor(){
     this.currentTurn = 0;
-    this.winConditions = [];
     this.gameBoard = Array.from(document.querySelectorAll(".game-section"));
     this.winConditions = [
       [0,1,2],
@@ -30,6 +29,7 @@ class Game{
       return;
     }
     if(this.currentTurn === 0){
+      // debugger;
       this.playerOneSections.push(target);
       console.log(this.playerOneSections);
       this.checkGameConditions();
@@ -51,17 +51,13 @@ class Game{
 
   checkGameConditions(){
     for(var i = 0; i < this.winConditions.length; i++){
-      if(this.checkMatches(i, this.playerOneSections) === true){
+      if(this.winConditions[i].every(index => this.playerOneSections.includes(index))){
         console.log("Player one wins");
-      } else if (this.checkMatches(i, this.playerTwoSections) === true){
+      } else if (this.winConditions[i].every(index => this.playerTwoSections.includes(index))){
         console.log("Player two wins");
       }
     }
   }
-  checkMatches(i, playerArray){
-    this.winConditions[i].every(section => playerArray.includes(section));
-  };
-
 
   endGame(){
 
