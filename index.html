@@ -5,16 +5,42 @@
     <link rel="stylesheet" href="styles.css">
     <title></title>
   </head>
-  <body>
+  <body class="full-page">
     <span class="start-page">
-      <button class="start-button">Submit</button>
+      <span class="welcome-message">WELCOME TO TIC-TAC-TOE</span>
+      <span class="player-create-turn"></span>
+        <p class="player-select-status" id=0>Player One: Create new player or select from saved</p>
+      <form class="start-select create-new-player" action="index.html" method="post">
+        <p>Create a Player!</p>
+        <input type="text" id="player-name" placeholder="Enter your name">
+        <br><br>
+        <select id="player-token">
+          <option selected disabled>Choose your token</option>
+          <option value=&#9824;> &#9824; Spade</option>
+          <option value=&#9827;> &#9827; Club</option>
+          <option value=&#9829;> &#9829; Heart</option>
+          <option value=&#9830;> &#9830; Diamond</option>
+          <option value=&#935;> &#935; X</option>
+          <option value=&#927;>	&#927; O</option>
+          <option value=&#937;>	&#937; Omega</option>
+          <option value=&#165;>	&#165; Yen</option>
+        </select>
+        <br><br>
+        <button class="create-new-player">Create Player!</button>
+      </form>
+      <br><br>
+      <form class="start-select choose-existing-player">
+        <p>Choose an existing player!</p>
+          <select class="select-existing-player">
+            <option selected disabled>Select a player!</option>
+          </select>
+          <br><br>
+          <button class="choose-existing-player">Choose player!</button>
+      </form>
     </span>
     <span class="game-page hidden">
       <span class ="player-info player-one-info">
-        <h2 class="player player-one">
-          <div class="x-half-one"></div>
-          <div class="x-half-two"></div>
-        </h2>
+        <h2 class="player player-one"></h2>
         <h1 class="player-one-score"></h1>
         <span class="player-score player-one-wins"></span>
       </span>
@@ -33,18 +59,14 @@
         </div>
       </span>
       <span class ="player-info player-two-info">
-        <h2 class="player player-two">
-          <div class="o-half-one"></div>
-          <div class="o-half-two"></div>
-        </h2>
+        <h2 class="player player-two"></h2>
         <h1 class="player-two-score"></h1>
         <span class="player-score player-two-wins"></span>
       </span>
     </span>
 
-
-  <script src="main.js" ></script>
-  <script src="player.js" ></script>
   <script src="game.js" ></script>
+  <script src="player.js" ></script>
+  <script src="main.js" ></script>
   </body>
 </html>
