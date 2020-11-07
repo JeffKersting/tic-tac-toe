@@ -79,14 +79,17 @@ h1{
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  height: 36em;
   width: 36em;
-  background-color: lightyellow;
+  background-color: black;
 }
 .game-section{
   height:11.5em;
   width: 11.5em;
-  background-color: lightblue;
+  background-color: darkgreen;
+}
+.middle{
+  margin-top: .75em;
+  margin-bottom: .75em;
 }
 .hidden{
   display: none;
