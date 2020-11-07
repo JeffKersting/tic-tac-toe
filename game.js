@@ -29,19 +29,17 @@ class Game{
       return;
     }
     if(this.currentTurn === 0){
-      // debugger;
       this.playerOneSections.push(target);
-      console.log(this.playerOneSections);
-      this.checkGameConditions();
-      this.gameBoard[target].innerText = this.playerOne.token;
+      this.gameBoard[target].innerHTML = `<div class = token>${this.playerOne.token}</div>`;
       this.updateGameStatus(this.playerTwo);
       this.currentTurn = 1;
+      this.checkGameConditions();
     } else {
       this.playerTwoSections.push(target);
-      this.checkGameConditions();
-      this.gameBoard[target].innerText = this.playerTwo.token;
+      this.gameBoard[target].innerHTML = `<div class = token>${this.playerTwo.token}</div>`;
       this.updateGameStatus(this.playerOne);
       this.currentTurn = 0;
+      this.checkGameConditions();
     }
   }
   updateGameStatus(nextPlayer){
@@ -52,11 +50,22 @@ class Game{
   checkGameConditions(){
     for(var i = 0; i < this.winConditions.length; i++){
       if(this.winConditions[i].every(index => this.playerOneSections.includes(index))){
+        console.log(this.winConditions[i]);
+        this.winAnimation(this.winConditions[i]);
         console.log("Player one wins");
+
       } else if (this.winConditions[i].every(index => this.playerTwoSections.includes(index))){
+        this.winAnimation(this.winConditions[i]);
         console.log("Player two wins");
       }
     }
+  }
+  winAnimation(winningSections){
+    for(var i =0; i < winningSections.length; i++){
+      var toAnimate = winningSections[i];
+      this.gameBoard[toAnimate].childNodes[0].classList.add("token-spin");
+    }
+    success.play();
   }
 
   endGame(){

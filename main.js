@@ -1,4 +1,3 @@
-
 var pageWindow = document.querySelector(".full-page");
 var startPage = document.querySelector(".start-page");
 var gamePage = document.querySelector(".game-page");

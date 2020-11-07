@@ -76,7 +76,6 @@ h1{
 }
 .game-grid{
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   width: 36em;
@@ -86,8 +85,29 @@ h1{
   height:11.5em;
   width: 11.5em;
   background-color: darkgreen;
+  align-items: center;
   text-align: center;
 }
+.token{
+  font-size: 6em;
+  margin-top: .4em;
+  z-index: -1;
+}
+.token-spin{
+    animation: spin ease 1000ms;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    text-shadow: none;
+  }
+  50% {text-shadow: 0 0 .6em lightgreen;}
+  100% {
+    transform: rotate(360deg);
+    text-shadow: none;
+  }
+}
+
 .middle{
   margin-top: .75em;
   margin-bottom: .75em;
