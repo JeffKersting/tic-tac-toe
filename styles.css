@@ -17,7 +17,7 @@ html{
   font-family: fantasy;
   font-size: 4em;
   margin-top: 1em;
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 .start-select{
@@ -28,7 +28,7 @@ html{
   border-radius: 2em;
   border-color: lightgreen;
   border-width: .1em;
-  height: 8em;
+  height: 12em;
 }
 .game-page{
   display: grid;
@@ -47,13 +47,15 @@ span{
 .player-info{
   background-color: darkgreen;
   height: 100%;
+  text-align: center;
+  align-items: center;
 }
 .player-one-info{
   grid-column-start: 1;
 }
 .player{
   height: 2em;
-  width: 2em;
+  width: 6em;
   position: relative;
 }
 
@@ -65,7 +67,6 @@ span{
   grid-column-start: 3;
 }
 h1{
-  background-color: red;
   justify-content: center;
   height: 2em;
   width: auto;

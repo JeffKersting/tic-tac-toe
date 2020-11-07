@@ -9,14 +9,15 @@
     <span class="start-page">
       <span class="welcome-message">WELCOME TO TIC-TAC-TOE</span>
       <span class="player-create-turn"></span>
-      <form class="start-select create-new-player" action="index.html" method="post">Create a player!
-        <br>
+        <p class="player-select-status" id=0>Player One: Create new player or select from saved</p>
+      <form class="start-select create-new-player" action="index.html" method="post">
+        <p>Create a Player!</p>
         <input type="text" id="player-name" placeholder="Enter your name">
         <br><br>
         <select id="player-token">
           <option selected disabled>Choose your token</option>
           <option value=&#9824;> &#9824; Spade</option>
-          <option value=`&#9827`> &#9827; Club</option>
+          <option value=&#9827;> &#9827; Club</option>
           <option value=&#9829;> &#9829; Heart</option>
           <option value=&#9830;> &#9830; Diamond</option>
           <option value=&#935;> &#935; X</option>
