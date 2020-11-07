@@ -5,35 +5,36 @@
     <link rel="stylesheet" href="styles.css">
     <title></title>
   </head>
-  <body>
+  <body class="full-page">
     <span class="start-page">
       <span class="welcome-message">WELCOME TO TIC-TAC-TOE</span>
+      <span class="player-create-turn"></span>
       <form class="start-select create-new-player" action="index.html" method="post">Create a player!
         <br>
         <input type="text" id="player-name" placeholder="Enter your name">
         <br><br>
-        <select id="player-symbol">
-          <option selected disabled>Choose your symbol</option>
-          <option value="spade">&#9824; Spade</option>
-          <option value="club">&#9827; Club</option>
-          <option value="heart">&#9829; Heart</option>
-          <option value="diamond">&#9830; Diamond</option>
-          <option value="x">&#935; X</option>
-          <option value="o">	&#927; O</option>
-          <option value="omega">	&#937; Omega</option>
-          <option value="yen">	&#165; Yen</option>
+        <select id="player-token">
+          <option selected disabled>Choose your token</option>
+          <option value=&#9824;> &#9824; Spade</option>
+          <option value=`&#9827`> &#9827; Club</option>
+          <option value=&#9829;> &#9829; Heart</option>
+          <option value=&#9830;> &#9830; Diamond</option>
+          <option value=&#935;> &#935; X</option>
+          <option value=&#927;>	&#927; O</option>
+          <option value=&#937;>	&#937; Omega</option>
+          <option value=&#165;>	&#165; Yen</option>
         </select>
         <br><br>
-        <button class="start-button">Create Player!</button>
+        <button class="create-new-player">Create Player!</button>
       </form>
       <br><br>
       <form class="start-select choose-existing-player">
-        <p class="select-existing-player">Choose an existing player!</p>
-          <select>
+        <p>Choose an existing player!</p>
+          <select class="select-existing-player">
             <option selected disabled>Select a player!</option>
           </select>
           <br><br>
-          <button class="start-button">Choose player!</button>
+          <button class="choose-existing-player">Choose player!</button>
       </form>
     </span>
     <span class="game-page hidden">
@@ -63,9 +64,8 @@
       </span>
     </span>
 
-
-  <script src="main.js" ></script>
-  <script src="player.js" ></script>
   <script src="game.js" ></script>
+  <script src="player.js" ></script>
+  <script src="main.js" ></script>
   </body>
 </html>

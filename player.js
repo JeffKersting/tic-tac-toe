@@ -1,12 +1,12 @@
 class Player{
-  constructor(id, name, symbol){
+  constructor(id, name, token, wins){
     this.id = id;
     this.name = name;
-    this.symbol = symbol;
+    this.token = token;
     this.wins = 0;
   }
   saveToStorage(){
-    localStorage.setItem(JSON.stringify(this.id, JSON.stringify(this);
+    localStorage.setItem(this.id, JSON.stringify(this));
   }
   deleteFromStorage(){
     localStorage.removeItem(this.id);
