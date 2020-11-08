@@ -9,7 +9,12 @@ var playerOneNameDisplay = document.querySelector(".player-one");
 var playerOneScoreDisplay = document.querySelector(".player-one-score");
 var playerTwoNameDisplay = document.querySelector(".player-two");
 var playerTwoScoreDisplay = document.querySelector(".player-two-score");
+var playerOneDisplay = document.querySelector(".player-one-info");
+var playerTwoDisplay = document.querySelector(".player-two-info");
+var gamePageGrid = document.querySelector(".game-board");
 var gameStateDisplay = document.querySelector(".game-state");
+var optionsButton = document.querySelector(".options-button");
+var optionsMenu = document.querySelector(".options-menu");
 var currentGame = new Game();
 
 pageWindow.addEventListener("click", eventTargetIdentifier);
@@ -67,7 +72,16 @@ function eventTargetIdentifier(event){
     populatePlayerArea(existingPlayer);
   } else if(target.classList.contains("game-section")){
     currentGame.playerTurn(parseInt(target.id));
-
+  } else if(target.classList.contains("options-button")){
+    menuBlur();
+  } else if(target.classList.contains("exit-menu")){
+    menuBlur();
+  } else if(target.classList.contains("select-players")){
+    menuBlur();
+    changePage();
+  } else if(target.classList.contains("restart-game")){
+    menuBlur();
+    currentGame.restartGame();
   }
 }
 
@@ -83,11 +97,28 @@ function populatePlayerArea(playerData){
     playerTwoScoreDisplay.innerText = `${currentGame.playerTwo.wins} wins`;
     playerSelectStatus.innerText = "Player One: Create new player or select from saved";
     currentGame.currentTurn = 0;
-    clearStartPage();
+    changePage();
   }
 }
 
-function clearStartPage(event){
-  startPage.classList.add("hidden");
-  gamePage.classList.remove("hidden");
+function changePage(event){
+  startPage.classList.toggle("hidden");
+  gamePage.classList.toggle("hidden");
 }
+
+
+function menuBlur(){
+  optionsMenu.classList.toggle("hidden");
+  gamePageGrid.classList.toggle("blur");
+  playerOneDisplay.classList.toggle("blur");
+  playerTwoDisplay.classList.toggle("blur");
+  optionsButton.classList.toggle("hidden");
+}
+
+// function menuRemoveBlur(){
+//   optionsMenu.classList.toggle("hidden");
+//   gamePageGrid.classList.remove("blur");
+//   playerOneDisplay.classList.remove("blur");
+//   playerTwoDisplay.classList.remove("blur");
+//   optionsButton.classList.remove("hidden");
+// }

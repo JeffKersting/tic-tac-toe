@@ -27,26 +27,29 @@ class Game{
   playerTurn(target){
     if(this.playerOneSections.includes(target) || this.playerTwoSections.includes(target)){
       return;
-    }
-    if(this.currentTurn === 0){
+    } else if((this.playerOneSections.length + this.playerTwoSections.length) === 8){
+      this.updateGameStatus(this.playerOne, 0)
+    } else if(this.currentTurn === 0){
       this.playerOneSections.push(target);
       this.gameBoard[target].innerHTML = `<div class = token>${this.playerOne.token}</div>`;
-      this.updateGameStatus(this.playerTwo, false);
+      this.updateGameStatus(this.playerTwo, 2);
       this.currentTurn = 1;
       this.checkGameConditions();
     } else {
       this.playerTwoSections.push(target);
       this.gameBoard[target].innerHTML = `<div class = token>${this.playerTwo.token}</div>`;
-      this.updateGameStatus(this.playerOne, false);
+      this.updateGameStatus(this.playerOne, 2);
       this.currentTurn = 0;
       this.checkGameConditions();
     }
   }
   updateGameStatus(player, winCheck) {
-    if(winCheck === true){
-      gameStateDisplay.innerText = `${player.name} wins!`
+    if(winCheck === 0){
+      gameStateDisplay.innerText = `It's a draw! ${player.name}, pick a square to start a new game!`;
+    }else if(winCheck === 1){
+      gameStateDisplay.innerText = `${player.name} wins! ${player.name}, pick a square to start a new game!`
     } else {
-      gameStateDisplay.innerText = `It is ${player.name}'s turn!`
+      gameStateDisplay.innerText = `It's ${player.name}'s turn!`;
     }
   }
 
@@ -78,13 +81,19 @@ class Game{
     }
   }
 
+
   endGame(winningPlayer){
-    this.updateGameStatus(winningPlayer, true);
+    this.updateGameStatus(winningPlayer, 1);
     this.playerOneSections = [];
     this.playerTwoSections = [];
     setTimeout(currentGame.clearGameBoard, 1500);
-    setTimeout(populatePlayerArea(currentGame.playerOne), 1500);
-    setTimeout(populatePlayerArea(currentGame.playerTwo), 1500);
+    this.currentTurn = 0;
+  }
+
+  restartGame(){
+    this.clearGameBoard();
+    this.playerOneSections = [];
+    this.playerTwoSections = [];
     this.currentTurn = 0;
   }
 
