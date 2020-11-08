@@ -1,6 +1,8 @@
 html{
   background-color: darkgreen;
   flex-direction: column;
+  font-family: sans-serif;
+  color: white;
 }
 
 .start-page{
@@ -14,10 +16,10 @@ html{
   margin: auto;
 }
 .welcome-message{
-  font-family: fantasy;
   font-size: 4em;
   margin-top: 1em;
   margin-bottom: 1em;
+
 }
 
 .start-select{
