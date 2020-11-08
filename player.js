@@ -3,7 +3,7 @@ class Player{
     this.id = id;
     this.name = name;
     this.token = token;
-    this.wins = 0;
+    this.wins = wins || 0;
   }
   saveToStorage(){
     localStorage.setItem(this.id, JSON.stringify(this));
@@ -13,7 +13,7 @@ class Player{
   }
   updateStats(){
     var player = JSON.parse(localStorage.getItem(this.id));
-    player.wins ++;
-    player.saveToStorage();
+    this.wins ++;
+    this.saveToStorage();
   }
 }
