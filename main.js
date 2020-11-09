@@ -1,9 +1,11 @@
-var pageWindow = document.querySelector('.full-page');
 var startPage = document.querySelector('.start-page');
 var gamePage = document.querySelector('.game-page');
 var newPlayerName = document.querySelector('#player-name');
 var newPlayerSymbol = document.querySelector('#player-token');
+var createNewButton = document.querySelector('.create-new-player');
 var existingPlayerSelection = document.querySelector('.select-existing-player');
+var chooseExistingButton = document.querySelector('.choose-existing-player');
+var deleteExistingButton = document.querySelector('.delete-player');
 var playerSelectStatus = document.querySelector('.player-select-status');
 var playerOneNameDisplay = document.querySelector('.player-one');
 var playerOneScoreDisplay = document.querySelector('.player-one-score');
@@ -15,10 +17,20 @@ var gamePageGrid = document.querySelector('.game-board');
 var gameStateDisplay = document.querySelector('.game-state');
 var optionsButton = document.querySelector('.options-button');
 var optionsMenu = document.querySelector('.options-menu');
+var exitMenuButton = document.querySelector('.exit-menu');
+var selectPlayerButton = document.querySelector('.select-players');
+var restartGameButton = document.querySelector('.restart-game');
 var gameBoardSection = document.querySelectorAll('.game-section');
-var currentGame = new Game();
+var currentGame = '';
 
-pageWindow.addEventListener('click', eventHandler);
+
+createNewButton.addEventListener('click', createNewPlayer);
+chooseExistingButton.addEventListener('click', chooseExisting);
+deleteExistingButton.addEventListener('click', deleteExisting);
+optionsButton.addEventListener('click', openOptionsMenu);
+exitMenuButton.addEventListener('click', exitMenu);
+selectPlayerButton.addEventListener('click', selectPlayer);
+restartGameButton.addEventListener('click', restartGame);
 
 gameBoardSection.forEach(section => {
   section.addEventListener('mouseenter', previewToken);
@@ -32,13 +44,7 @@ gameBoardSection.forEach(section => {
   section.addEventListener('click', gameBoardEvent);
 });
 
-function gameBoardEvent(event) {
-  var targetParent = event.target.parentNode;
-  var gameBoardSection = parseInt(event.target.parentNode.id);
-    targetParent.removeEventListener('mouseenter', previewToken);
-    targetParent.removeEventListener('mouseleave', removePreviewToken);
-    currentGame.playerTurn(gameBoardSection);
-}
+
 
 document.onload = onLoad();
 
@@ -49,6 +55,7 @@ function onLoad() {
     var newOption = createPlayerOption(existingPlayer);
     existingPlayerSelection.appendChild(newOption);
   }
+  currentGame = new Game();
 }
 
 function createPlayerFromStorage(playerKey) {
@@ -57,7 +64,8 @@ function createPlayerFromStorage(playerKey) {
   return existingPlayer;
 }
 
-function createNewPlayer() {
+function createNewPlayer(event) {
+  event.preventDefault();
   if (newPlayerInputCheck()) {
     return;
   }
@@ -71,7 +79,7 @@ function createNewPlayer() {
 }
 
 function newPlayerInputCheck() {
-  if (newPlayerName === 0 || newPlayerSymbol.value === 'Choose your token') {
+  if (newPlayerName.value.length === 0 || newPlayerSymbol.value === 'Choose your token') {
     return true;
   }
 }
@@ -95,36 +103,53 @@ function deletePlayer(playerKey) {
   existingPlayerSelection.removeChild(optionToDelete);
 }
 
-function eventHandler(event) {
+function chooseExisting(event) {
   event.preventDefault();
-  var target = event.target;
-  if (target.classList.contains('create-new-player')) {
-    createNewPlayer();
-  } else if (target.classList.contains('choose-existing-player')) {
-    var existingPlayer = createPlayerFromStorage(existingPlayerSelection.value);
-    currentGame.addPlayer(existingPlayer);
-    populatePlayerArea(existingPlayer);
-  } else if (target.classList.contains('game-section')) {
-    currentGame.playerTurn(parseInt(target.id));
-  } else if (target.classList.contains('delete-player')) {
-    deletePlayer(existingPlayerSelection.value);
-  } else if (target.classList.contains('options-button')) {
-    removeAllPreviewEvent();
-    menuBlur();
-  } else if (target.classList.contains('exit-menu')) {
-    restoreUnusedPreviewToken();
-    menuBlur();
-  } else if (target.classList.contains('select-players')) {
-    menuBlur();
-    restorePreviewTokenEvent();
-    currentGame.restartGame();
-    changePage();
-    updateExistingPlayerDisplay();
-  } else if (target.classList.contains('restart-game')) {
-    menuBlur();
-    restorePreviewTokenEvent();
-    currentGame.restartGame();
-  }
+  var existingPlayer = createPlayerFromStorage(existingPlayerSelection.value);
+  currentGame.addPlayer(existingPlayer);
+  populatePlayerArea(existingPlayer);
+}
+
+function gameBoardEvent(event) {
+  event.preventDefault();
+  var targetParent = event.target.parentNode;
+  var gameBoardSection = parseInt(event.target.parentNode.id);
+  targetParent.removeEventListener('mouseenter', previewToken);
+  targetParent.removeEventListener('mouseleave', removePreviewToken);
+  currentGame.playerTurn(gameBoardSection);
+}
+
+function deleteExisting(event) {
+  event.preventDefault();
+  deletePlayer(existingPlayerSelection.value);
+}
+
+function openOptionsMenu(event) {
+  event.preventDefault();
+  removeAllPreviewEvent();
+  menuBlur();
+}
+
+function exitMenu(event) {
+  event.preventDefault();
+  restoreUnusedPreviewToken();
+  menuBlur();
+}
+
+function selectPlayer(event) {
+  event.preventDefault();
+  menuBlur();
+  restorePreviewTokenEvent();
+  currentGame.restartGame();
+  changePage();
+  updateExistingPlayerDisplay();
+}
+
+function restartGame(event) {
+  event.preventDefault();
+  menuBlur();
+  restorePreviewTokenEvent();
+  currentGame.restartGame();
 }
 
 function populatePlayerArea(playerData) {
@@ -189,6 +214,13 @@ function menuBlur() {
   playerOneDisplay.classList.toggle('blur');
   playerTwoDisplay.classList.toggle('blur');
   optionsButton.classList.toggle('hidden');
+}
+
+function winAnimation(winningSections) {
+  for(var i = 0; i < winningSections.length; i++) {
+    var toAnimate = winningSections[i];
+    currentGame.gameBoard[toAnimate].childNodes[0].classList.add('token-spin');
+  }
 }
 
 function tokenColorCheck(playerToken) {
