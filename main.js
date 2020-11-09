@@ -58,6 +58,9 @@ function createPlayerFromStorage(playerKey) {
 }
 
 function createNewPlayer() {
+  if (newPlayerInputCheck()) {
+    return;
+  }
   var newPlayer = new Player(Date.now(), newPlayerName.value, newPlayerSymbol.value, 0);
   var newOption = createPlayerOption(newPlayer);
   currentGame.addPlayer(newPlayer);
@@ -65,6 +68,12 @@ function createNewPlayer() {
   newPlayer.saveToStorage();
   existingPlayerSelection.appendChild(newOption);
   return newPlayer;
+}
+
+function newPlayerInputCheck() {
+  if (newPlayerName === 0 || newPlayerSymbol.value === 'Choose your token') {
+    return true;
+  }
 }
 
 function createPlayerOption(existingPlayer) {
