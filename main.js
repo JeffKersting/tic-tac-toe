@@ -49,7 +49,7 @@ gameBoardSection.forEach(section => {
 document.onload = onLoad();
 
 function onLoad() {
-  for(var i = 0; i < localStorage.length; i++) {
+  for (var i = 0; i < localStorage.length; i++) {
     var playerKey = localStorage.key(i);
     var existingPlayer = createPlayerFromStorage(playerKey);
     var newOption = createPlayerOption(existingPlayer);
@@ -226,7 +226,7 @@ function menuBlur() {
 }
 
 function winAnimation(winningSections) {
-  for(var i = 0; i < winningSections.length; i++) {
+  for (var i = 0; i < winningSections.length; i++) {
     var toAnimate = winningSections[i];
     currentGame.gameBoard[toAnimate].childNodes[0].classList.add('token-spin');
   }
@@ -264,19 +264,19 @@ function removePreviewToken(event) {
 function removeAllPreviewEvent() {
   gameBoardSection.forEach(section => {
     section.removeEventListener('mouseenter', previewToken);
-  })
+  });
   gameBoardSection.forEach(section => {
     section.removeEventListener('mouseleave', removePreviewToken);
-  })
+  });
 }
 
 function restorePreviewTokenEvent() {
   gameBoardSection.forEach(section => {
     section.addEventListener('mouseenter', previewToken);
-  })
+  });
   gameBoardSection.forEach(section => {
     section.addEventListener('mouseleave', removePreviewToken);
-  })
+  });
 }
 
 function restoreUnusedPreviewToken() {

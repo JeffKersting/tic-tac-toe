@@ -43,7 +43,7 @@ class Game {
   }
 
   checkGameConditions() {
-    for(var i = 0; i < this.winConditions.length; i++) {
+    for (var i = 0; i < this.winConditions.length; i++) {
       if (this.winConditions[i].every(index => this.playerOneSections.includes(index))) {
         this.playerOne.updateStats();
         this.winState(this.winConditions[i], this.playerOne);
@@ -70,7 +70,7 @@ class Game {
   }
 
   clearGameBoard() {
-    for(var i = 0; i < currentGame.gameBoard.length; i++) {
+    for (var i = 0; i < currentGame.gameBoard.length; i++) {
       currentGame.gameBoard[i].innerHTML = '';
     }
   }
