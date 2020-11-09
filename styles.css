@@ -105,12 +105,15 @@ button{
   text-shadow: inset 0 0 .05em;
   opacity: .5;
 }
+
 .black{
   color: black;
 }
+
 .red{
   color: red;
 }
+
 .options-button{
   position: absolute;
   bottom: -8em;

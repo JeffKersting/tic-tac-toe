@@ -22,13 +22,15 @@ pageWindow.addEventListener('click', eventHandler);
 
 gameBoardSection.forEach(section => {
   section.addEventListener('mouseenter', previewToken);
-})
+});
+
 gameBoardSection.forEach(section => {
   section.addEventListener('mouseleave', removePreviewToken);
-})
+});
+
 gameBoardSection.forEach(section => {
   section.addEventListener('click', gameBoardEvent);
-})
+});
 
 function gameBoardEvent(event) {
   var targetParent = event.target.parentNode;
