@@ -69,8 +69,6 @@ class Game {
     success.play();
   }
 
-
-
   endGame(winningPlayer) {
     updateGameStatus(winningPlayer, 1);
     this.playerOneSections = [];
