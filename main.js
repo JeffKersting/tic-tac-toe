@@ -72,9 +72,9 @@ function createNewPlayer(event) {
   var newPlayer = new Player(Date.now(), newPlayerName.value, newPlayerSymbol.value, 0);
   var newOption = createPlayerOption(newPlayer);
   currentGame.addPlayer(newPlayer);
-  populatePlayerArea(newPlayer);
   newPlayer.saveToStorage();
   existingPlayerSelection.appendChild(newOption);
+  populatePlayerArea(newPlayer);
   updateNewPlayerDisplay();
   return newPlayer;
 }
@@ -141,19 +141,19 @@ function exitMenu(event) {
 
 function selectPlayer(event) {
   event.preventDefault();
+  currentGame.restartGame();
   menuBlur();
   restorePreviewTokenEvent();
   changePage();
   updateExistingPlayerDisplay();
   updateNewPlayerDisplay();
-  currentGame.restartGame();
 }
 
 function restartGame(event) {
   event.preventDefault();
+  currentGame.restartGame();
   menuBlur();
   restorePreviewTokenEvent();
-  currentGame.restartGame();
 }
 
 function populatePlayerArea(playerData) {
@@ -161,7 +161,7 @@ function populatePlayerArea(playerData) {
     updatePlayerDisplay(playerData);
     updateSelectStatus('Player Two');
     changeCurrentTurn();
-    gameStateDisplay.innerText = `${currentGame.playerOne.name}'s Turn!`
+    updateGameStatus(currentGame.playerOne, 2);
   } else {
     updatePlayerDisplay(playerData);
     updateSelectStatus('Player One');
@@ -291,7 +291,7 @@ function restoreUnusedPreviewToken() {
     if (section.childNodes.length > 0) {
       return;
     } else {
-    section.addEventListener('mouseleave', removePreviewToken);
+      section.addEventListener('mouseleave', removePreviewToken);
     }
   })
 }
