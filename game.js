@@ -19,7 +19,7 @@ class Game{
   addPlayer(playerData){
     if(this.currentTurn === 0){
       this.playerOne = playerData;
-    } else {
+    } else if(this.currentTurn === 1){
       this.playerTwo = playerData;
     }
   }
@@ -33,21 +33,23 @@ class Game{
       this.playerOneSections.push(target);
       this.gameBoard[target].innerHTML = `<div class = token>${this.playerOne.token}</div>`;
       this.updateGameStatus(this.playerTwo, 2);
-      this.currentTurn = 1;
+      changeCurrentTurn();
       this.checkGameConditions();
     } else {
       this.playerTwoSections.push(target);
       this.gameBoard[target].innerHTML = `<div class = token>${this.playerTwo.token}</div>`;
       this.updateGameStatus(this.playerOne, 2);
-      this.currentTurn = 0;
+      changeCurrentTurn();
       this.checkGameConditions();
     }
   }
+  
   updateGameStatus(player, winCheck) {
     if(winCheck === 0){
       gameStateDisplay.innerText = `It's a draw! ${player.name}, pick a square to start a new game!`;
     }else if(winCheck === 1){
-      gameStateDisplay.innerText = `${player.name} wins! ${player.name}, pick a square to start a new game!`
+      var losingPlayer = this.checkLosingPlayer(player);
+      gameStateDisplay.innerText = `${player.name} wins! ${losingPlayer.name}, pick a square to start a new game!`
     } else {
       gameStateDisplay.innerText = `It's ${player.name}'s turn!`;
     }
@@ -58,15 +60,23 @@ class Game{
     for(var i = 0; i < this.winConditions.length; i++){
       if(this.winConditions[i].every(index => this.playerOneSections.includes(index))){
         this.playerOne.updateStats();
-        this.winAnimation(this.winConditions[i], this.playerOne);
+        this.winState(this.winConditions[i], this.playerOne);
       } else if (this.winConditions[i].every(index => this.playerTwoSections.includes(index))){
         this.playerTwo.updateStats();
-        this.winAnimation(this.winConditions[i], this.playerTwo);
+        this.winState(this.winConditions[i], this.playerTwo);
       }
     }
   }
 
-  winAnimation(winningSections, winningPlayer){
+  checkLosingPlayer(player){
+    if(this.playerOne === player){
+      return this.playerTwo;
+    } else {
+      return this.playerOne;
+    }
+  }
+
+  winState(winningSections, winningPlayer){
     for(var i =0; i < winningSections.length; i++){
       var toAnimate = winningSections[i];
       this.gameBoard[toAnimate].childNodes[0].classList.add("token-spin");
@@ -87,7 +97,7 @@ class Game{
     this.playerOneSections = [];
     this.playerTwoSections = [];
     setTimeout(currentGame.clearGameBoard, 1500);
-    this.currentTurn = 0;
+    updatePlayerDisplay(winningPlayer);
   }
 
   restartGame(){

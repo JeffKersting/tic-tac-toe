@@ -30,22 +30,18 @@ function onLoad(){
 }
 
 function createPlayerFromStorage(playerKey){
-  var playerData = JSON.parse(localStorage.getItem(playerKey));
-  var id = playerData.id;
-  var name = playerData.name;
-  var token = playerData.token;
-  var wins = playerData.wins;
-  var existingPlayer = new Player(id, name, token, wins);
+  var player = JSON.parse(localStorage.getItem(playerKey));
+  var existingPlayer = new Player(player.id, player.name, player.token, player.wins);
   return existingPlayer;
 }
 
 function createNewPlayer(){
-  var playerName = newPlayerName.value;
-  var playerSymbol = newPlayerSymbol.value;
-  var newPlayer = new Player(Date.now(), playerName, playerSymbol, 0);
+  var newPlayer = new Player(Date.now(), newPlayerName.value, newPlayerSymbol.value, 0);
   currentGame.addPlayer(newPlayer);
   populatePlayerArea(newPlayer);
   newPlayer.saveToStorage();
+  var newOption = createPlayerOption(newPlayer);
+  existingPlayerSelection.appendChild(newOption);
   return newPlayer;
 }
 
@@ -64,7 +60,7 @@ function eventTargetIdentifier(event){
   event.preventDefault();
   var target = event.target;
   if(target.classList.contains("create-new-player")){
-    currentGame.addPlayer(createNewPlayer())
+    createNewPlayer()
   } else if(target.classList.contains("choose-existing-player")){
     var playerKey = existingPlayerSelection.value;
     var existingPlayer = createPlayerFromStorage(playerKey);
@@ -79,6 +75,7 @@ function eventTargetIdentifier(event){
   } else if(target.classList.contains("select-players")){
     menuBlur();
     changePage();
+    existingPlayerSelection.value = 'Select a player!';
   } else if(target.classList.contains("restart-game")){
     menuBlur();
     currentGame.restartGame();
@@ -86,18 +83,26 @@ function eventTargetIdentifier(event){
 }
 
 function populatePlayerArea(playerData){
-    if(currentGame.currentTurn === 0){
+  if(currentGame.currentTurn === 0){
+    updatePlayerDisplay(playerData);
+    playerSelectStatus.innerText = "Player Two: Create new player or select from saved";
+    changeCurrentTurn();
+    gameStateDisplay.innerText = `${currentGame.playerOne.name}'s Turn!`
+  } else {
+    updatePlayerDisplay(playerData);
+    playerSelectStatus.innerText = "Player One: Create new player or select from saved";
+    changeCurrentTurn();
+    changePage();
+  }
+}
+
+function updatePlayerDisplay(playerData){
+  if(currentGame.playerOne === playerData){
     playerOneNameDisplay.innerText = `${currentGame.playerOne.name} ${currentGame.playerOne.token}`;
     playerOneScoreDisplay.innerText = `${currentGame.playerOne.wins} wins`;
-    playerSelectStatus.innerText = "Player Two: Create new player or select from saved";
-    currentGame.currentTurn = 1;
-    gameStateDisplay.innerText = `${currentGame.playerOne.name}'s Turn!`
   } else {
     playerTwoNameDisplay.innerText = `${currentGame.playerTwo.name} ${currentGame.playerTwo.token}`;
     playerTwoScoreDisplay.innerText = `${currentGame.playerTwo.wins} wins`;
-    playerSelectStatus.innerText = "Player One: Create new player or select from saved";
-    currentGame.currentTurn = 0;
-    changePage();
   }
 }
 
@@ -106,6 +111,13 @@ function changePage(event){
   gamePage.classList.toggle("hidden");
 }
 
+function changeCurrentTurn(){
+  if(currentGame.currentTurn === 0){
+    currentGame.currentTurn = 1
+  } else {
+    currentGame.currentTurn = 0
+  }
+}
 
 function menuBlur(){
   optionsMenu.classList.toggle("hidden");
