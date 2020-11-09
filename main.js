@@ -75,6 +75,7 @@ function createNewPlayer(event) {
   populatePlayerArea(newPlayer);
   newPlayer.saveToStorage();
   existingPlayerSelection.appendChild(newOption);
+  updateNewPlayerDisplay();
   return newPlayer;
 }
 
@@ -108,6 +109,7 @@ function chooseExisting(event) {
   var existingPlayer = createPlayerFromStorage(existingPlayerSelection.value);
   currentGame.addPlayer(existingPlayer);
   populatePlayerArea(existingPlayer);
+  updateExistingPlayerDisplay();
 }
 
 function gameBoardEvent(event) {
@@ -121,6 +123,7 @@ function gameBoardEvent(event) {
 
 function deleteExisting(event) {
   event.preventDefault();
+  updateExistingPlayerDisplay();
   deletePlayer(existingPlayerSelection.value);
 }
 
@@ -140,9 +143,10 @@ function selectPlayer(event) {
   event.preventDefault();
   menuBlur();
   restorePreviewTokenEvent();
-  currentGame.restartGame();
   changePage();
   updateExistingPlayerDisplay();
+  updateNewPlayerDisplay();
+  currentGame.restartGame();
 }
 
 function restartGame(event) {
@@ -193,6 +197,11 @@ function updateSelectStatus(playerSelecting) {
 
 function updateExistingPlayerDisplay() {
   existingPlayerSelection.value = 'Select a player!';
+}
+
+function updateNewPlayerDisplay() {
+  newPlayerName.value = '';
+  newPlayerSymbol.value = 'Choose your token';
 }
 
 function changePage(event) {
