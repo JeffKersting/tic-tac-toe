@@ -33,7 +33,6 @@ gameBoardSection.forEach(section => {
 function gameBoardEvent(event){
   var targetParent = event.target.parentNode;
   var gameBoardSection = parseInt(event.target.parentNode.id);
-    console.log(gameBoardSection);
     targetParent.removeEventListener('mouseenter', previewToken);
     targetParent.removeEventListener('mouseleave', removePreviewToken);
     currentGame.playerTurn(gameBoardSection);
@@ -121,13 +120,11 @@ function eventHandler(event){
 function populatePlayerArea(playerData){
   if(currentGame.currentTurn === 0){
     updatePlayerDisplay(playerData);
-    // playerSelectStatus.innerText = "Player Two: Create new player or select from saved";
     updateSelectStatus("Player Two");
     changeCurrentTurn();
     gameStateDisplay.innerText = `${currentGame.playerOne.name}'s Turn!`
   } else {
     updatePlayerDisplay(playerData);
-    // playerSelectStatus.innerText = "Player One: Create new player or select from saved";
     updateSelectStatus("Player One");
     changeCurrentTurn();
     changePage();
@@ -144,6 +141,17 @@ function updatePlayerDisplay(playerData){
   }
 }
 
+function updateGameStatus(player, winCheck) {
+  if(winCheck === 0){
+    gameStateDisplay.innerText = `It's a draw! ${player.name}, pick a square to start a new game!`;
+  }else if(winCheck === 1){
+    var losingPlayer = currentGame.checkLosingPlayer(player);
+    gameStateDisplay.innerText = `${player.name} wins! ${losingPlayer.name}, pick a square to start a new game!`
+  } else {
+    gameStateDisplay.innerText = `It's ${player.name}'s turn!`;
+  }
+}
+
 function updateSelectStatus(playerSelecting){
   playerSelectStatus.innerText = `${playerSelecting}: Create new player or select from saved`;
 }
@@ -151,6 +159,7 @@ function updateSelectStatus(playerSelecting){
 function updateExistingPlayerDisplay(){
   existingPlayerSelection.value = 'Select a player!';
 }
+
 
 function changePage(event){
   startPage.classList.toggle("hidden");
@@ -172,16 +181,25 @@ function menuBlur(){
   playerTwoDisplay.classList.toggle("blur");
   optionsButton.classList.toggle("hidden");
 }
-
+function tokenColorCheck(playerToken){
+  console.log(playerToken);
+  if(playerToken === "♠" || playerToken === "♣"){
+    return "black";
+  } else {
+    return "red";
+  }
+}
 function previewToken(event){
   event.preventDefault();
   if(currentGame.currentTurn === 0){
+    tokenColor = tokenColorCheck(currentGame.playerOne.token)
     var player = currentGame.playerOne;
   } else {
+    tokenColor = tokenColorCheck(currentGame.playerTwo.token)
     var player = currentGame.playerTwo
   }
   var target = event.target.id;
-  currentGame.gameBoard[target].innerHTML += `<div class=token>${player.token}</div>`
+  currentGame.gameBoard[target].innerHTML += `<div class="token ${tokenColor}">${player.token}</div>`
 }
 
 function removePreviewToken(event){

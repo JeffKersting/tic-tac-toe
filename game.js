@@ -25,35 +25,22 @@ class Game{
   }
 
   playerTurn(target){
-    console.log(target);
     if(this.playerOneSections.includes(target) || this.playerTwoSections.includes(target)){
       return;
     } else if((this.playerOneSections.length + this.playerTwoSections.length) === 8){
-      this.updateGameStatus(this.playerOne, 0)
+      updateGameStatus(this.playerOne, 0)
     } else if(this.currentTurn === 0){
       this.playerOneSections.push(target);
-      this.updateGameStatus(this.playerTwo, 2);
+      updateGameStatus(this.playerTwo, 2);
       changeCurrentTurn();
       this.checkGameConditions();
     } else {
       this.playerTwoSections.push(target);
-      this.updateGameStatus(this.playerOne, 2);
+      updateGameStatus(this.playerOne, 2);
       changeCurrentTurn();
       this.checkGameConditions();
     }
   }
-
-  updateGameStatus(player, winCheck) {
-    if(winCheck === 0){
-      gameStateDisplay.innerText = `It's a draw! ${player.name}, pick a square to start a new game!`;
-    }else if(winCheck === 1){
-      var losingPlayer = this.checkLosingPlayer(player);
-      gameStateDisplay.innerText = `${player.name} wins! ${losingPlayer.name}, pick a square to start a new game!`
-    } else {
-      gameStateDisplay.innerText = `It's ${player.name}'s turn!`;
-    }
-  }
-
 
   checkGameConditions(){
     for(var i = 0; i < this.winConditions.length; i++){
@@ -93,7 +80,7 @@ class Game{
 
 
   endGame(winningPlayer){
-    this.updateGameStatus(winningPlayer, 1);
+    updateGameStatus(winningPlayer, 1);
     this.playerOneSections = [];
     this.playerTwoSections = [];
     setTimeout(currentGame.clearGameBoard, 1500);
@@ -103,6 +90,7 @@ class Game{
 
   restartGame(){
     this.clearGameBoard();
+    updateGameStatus(this.playerOne, 2);
     this.playerOneSections = [];
     this.playerTwoSections = [];
     this.currentTurn = 0;
