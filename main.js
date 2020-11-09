@@ -90,15 +90,20 @@ function eventHandler(event){
   } else if(target.classList.contains("game-section")){
     currentGame.playerTurn(parseInt(target.id));
   } else if(target.classList.contains("options-button")){
+    removeAllPreviewEvent();
     menuBlur();
   } else if(target.classList.contains("exit-menu")){
+    restorePreviewTokenEvent();
     menuBlur();
   } else if(target.classList.contains("select-players")){
     menuBlur();
+    restorePreviewTokenEvent();
+    currentGame.restartGame();
     changePage();
     existingPlayerSelection.value = 'Select a player!';
   } else if(target.classList.contains("restart-game")){
     menuBlur();
+    restorePreviewTokenEvent();
     currentGame.restartGame();
   }
 }
@@ -167,14 +172,20 @@ function removePreviewToken(event){
   }
 }
 
-function resetPreviewToken(){
+function removeAllPreviewEvent(){
+  gameBoardSection.forEach(section => {
+    section.removeEventListener('mouseenter', previewToken);
+  })
+  gameBoardSection.forEach(section => {
+    section.removeEventListener('mouseleave', removePreviewToken);
+  })
+}
+
+function restorePreviewTokenEvent(){
   gameBoardSection.forEach(section => {
     section.addEventListener('mouseenter', previewToken);
   })
   gameBoardSection.forEach(section => {
     section.addEventListener('mouseleave', removePreviewToken);
-  })
-  gameBoardSection.forEach(section => {
-    section.addEventListener('click', gameBoardEvent);
   })
 }

@@ -32,13 +32,11 @@ class Game{
       this.updateGameStatus(this.playerOne, 0)
     } else if(this.currentTurn === 0){
       this.playerOneSections.push(target);
-      // this.gameBoard[target].innerHTML = `<div class =token>${this.playerOne.token}</div>`;
       this.updateGameStatus(this.playerTwo, 2);
       changeCurrentTurn();
       this.checkGameConditions();
     } else {
       this.playerTwoSections.push(target);
-      // this.gameBoard[target].innerHTML = `<div class = token>${this.playerTwo.token}</div>`;
       this.updateGameStatus(this.playerOne, 2);
       changeCurrentTurn();
       this.checkGameConditions();
@@ -78,6 +76,7 @@ class Game{
   }
 
   winState(winningSections, winningPlayer){
+    removeAllPreviewEvent();
     for(var i =0; i < winningSections.length; i++){
       var toAnimate = winningSections[i];
       this.gameBoard[toAnimate].childNodes[0].classList.add("token-spin");
@@ -99,7 +98,7 @@ class Game{
     this.playerTwoSections = [];
     setTimeout(currentGame.clearGameBoard, 1500);
     updatePlayerDisplay(winningPlayer);
-    resetPreviewToken();
+    setTimeout(restorePreviewTokenEvent, 1500);
   }
 
   restartGame(){
