@@ -64,12 +64,9 @@ class Game {
 
   winState(winningSections, winningPlayer) {
     removeAllPreviewEvent();
-    for(var i = 0; i < winningSections.length; i++) {
-      var toAnimate = winningSections[i];
-      this.gameBoard[toAnimate].childNodes[0].classList.add('token-spin');
-    }
-    success.play();
+    winAnimation(winningSections);
     this.endGame(winningPlayer);
+    success.play();
   }
 
   clearGameBoard() {
