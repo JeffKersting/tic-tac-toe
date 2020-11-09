@@ -22,6 +22,17 @@ button{
   border-radius: .6em;
   outline: none;
   cursor: pointer;
+  color: white;
+  width: 10em;
+  background-color: darkgreen;
+  border-style: solid;
+  border-radius: 2em;
+  border-color: yellow;
+}
+button:hover{
+  /* background-color: white; */
+  color: darkgreen;
+  background: rgba(255,255,255,.85);
 }
 
 .start-page{
@@ -116,22 +127,21 @@ button{
   color: red;
 }
 
-.options-button{
+.options-button-container{
   position: absolute;
-  bottom: -8em;
-  grid-column-start: 2;
-  left: 30%;
+  bottom: -6em;
+  justify-self: center;
 }
 
 .options-menu{
   position: absolute;
   border-style: solid;
-  padding: .5em;
+  padding: 1em;
   width: 10em;
   border-radius: 2em;
   border-color: yellow;
   justify-self: center;
-  background-color: darkgreen;
+  background: rgba(0, 100, 0, .75);
 }
 
 .blur{
