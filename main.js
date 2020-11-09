@@ -156,6 +156,12 @@ function restartGame(event) {
   restorePreviewTokenEvent();
 }
 
+function clearGameBoard() {
+  for (var i = 0; i < currentGame.gameBoard.length; i++) {
+    currentGame.gameBoard[i].innerHTML = '';
+  }
+}
+
 function populatePlayerArea(playerData) {
   if (currentGame.currentTurn === 0) {
     updatePlayerDisplay(playerData);

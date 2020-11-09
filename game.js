@@ -69,23 +69,19 @@ class Game {
     success.play();
   }
 
-  clearGameBoard() {
-    for (var i = 0; i < currentGame.gameBoard.length; i++) {
-      currentGame.gameBoard[i].innerHTML = '';
-    }
-  }
+
 
   endGame(winningPlayer) {
     updateGameStatus(winningPlayer, 1);
     this.playerOneSections = [];
     this.playerTwoSections = [];
-    setTimeout(currentGame.clearGameBoard, 1500);
+    setTimeout(clearGameBoard, 1200);
     updatePlayerDisplay(winningPlayer);
     setTimeout(restorePreviewTokenEvent, 1500);
   }
 
   restartGame() {
-    this.clearGameBoard();
+    clearGameBoard();
     updateGameStatus(this.playerOne, 2);
     this.playerOneSections = [];
     this.playerTwoSections = [];
