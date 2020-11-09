@@ -25,25 +25,26 @@ class Game{
   }
 
   playerTurn(target){
+    console.log(target);
     if(this.playerOneSections.includes(target) || this.playerTwoSections.includes(target)){
       return;
     } else if((this.playerOneSections.length + this.playerTwoSections.length) === 8){
       this.updateGameStatus(this.playerOne, 0)
     } else if(this.currentTurn === 0){
       this.playerOneSections.push(target);
-      this.gameBoard[target].innerHTML = `<div class = token>${this.playerOne.token}</div>`;
+      // this.gameBoard[target].innerHTML = `<div class =token>${this.playerOne.token}</div>`;
       this.updateGameStatus(this.playerTwo, 2);
       changeCurrentTurn();
       this.checkGameConditions();
     } else {
       this.playerTwoSections.push(target);
-      this.gameBoard[target].innerHTML = `<div class = token>${this.playerTwo.token}</div>`;
+      // this.gameBoard[target].innerHTML = `<div class = token>${this.playerTwo.token}</div>`;
       this.updateGameStatus(this.playerOne, 2);
       changeCurrentTurn();
       this.checkGameConditions();
     }
   }
-  
+
   updateGameStatus(player, winCheck) {
     if(winCheck === 0){
       gameStateDisplay.innerText = `It's a draw! ${player.name}, pick a square to start a new game!`;
@@ -98,6 +99,7 @@ class Game{
     this.playerTwoSections = [];
     setTimeout(currentGame.clearGameBoard, 1500);
     updatePlayerDisplay(winningPlayer);
+    resetPreviewToken();
   }
 
   restartGame(){
