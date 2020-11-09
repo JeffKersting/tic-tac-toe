@@ -103,7 +103,7 @@ function eventHandler(event) {
     removeAllPreviewEvent();
     menuBlur();
   } else if (target.classList.contains('exit-menu')) {
-    restorePreviewTokenEvent();
+    restoreUnusedPreviewToken();
     menuBlur();
   } else if (target.classList.contains('select-players')) {
     menuBlur();
@@ -226,5 +226,22 @@ function restorePreviewTokenEvent() {
   })
   gameBoardSection.forEach(section => {
     section.addEventListener('mouseleave', removePreviewToken);
+  })
+}
+
+function restoreUnusedPreviewToken() {
+  gameBoardSection.forEach(section => {
+    if (section.childNodes.length > 0) {
+      return;
+    } else {
+      section.addEventListener('mouseenter', previewToken);
+    }
+  })
+  gameBoardSection.forEach(section => {
+    if (section.childNodes.length > 0) {
+      return;
+    } else {
+    section.addEventListener('mouseleave', removePreviewToken);
+    }
   })
 }
