@@ -71,11 +71,19 @@ function createPlayerOption(existingPlayer){
   var id = existingPlayer.id;
   var newOption = document.createElement("option");
   var optionName = document.createTextNode(name);
+  newOption.setAttribute('id', id);
   newOption.setAttribute("value", id);
   newOption.appendChild(optionName);
   return newOption;
 }
 
+function deletePlayer(playerKey){
+  var player = JSON.parse(localStorage.getItem(playerKey));
+  var optionToDelete = document.getElementById(playerKey);
+  var existingPlayer = new Player(player.id, player.name, player.token, player.wins);
+  existingPlayer.deleteFromStorage();
+  existingPlayerSelection.removeChild(optionToDelete);
+}
 
 function eventHandler(event){
   event.preventDefault();
@@ -89,6 +97,8 @@ function eventHandler(event){
     populatePlayerArea(existingPlayer);
   } else if(target.classList.contains("game-section")){
     currentGame.playerTurn(parseInt(target.id));
+  } else if(target.classList.contains("delete-player")){
+    deletePlayer(existingPlayerSelection.value);
   } else if(target.classList.contains("options-button")){
     removeAllPreviewEvent();
     menuBlur();
@@ -100,7 +110,7 @@ function eventHandler(event){
     restorePreviewTokenEvent();
     currentGame.restartGame();
     changePage();
-    existingPlayerSelection.value = 'Select a player!';
+    updateExistingPlayerDisplay();
   } else if(target.classList.contains("restart-game")){
     menuBlur();
     restorePreviewTokenEvent();
@@ -111,12 +121,14 @@ function eventHandler(event){
 function populatePlayerArea(playerData){
   if(currentGame.currentTurn === 0){
     updatePlayerDisplay(playerData);
-    playerSelectStatus.innerText = "Player Two: Create new player or select from saved";
+    // playerSelectStatus.innerText = "Player Two: Create new player or select from saved";
+    updateSelectStatus("Player Two");
     changeCurrentTurn();
     gameStateDisplay.innerText = `${currentGame.playerOne.name}'s Turn!`
   } else {
     updatePlayerDisplay(playerData);
-    playerSelectStatus.innerText = "Player One: Create new player or select from saved";
+    // playerSelectStatus.innerText = "Player One: Create new player or select from saved";
+    updateSelectStatus("Player One");
     changeCurrentTurn();
     changePage();
   }
@@ -130,6 +142,14 @@ function updatePlayerDisplay(playerData){
     playerTwoNameDisplay.innerText = `${currentGame.playerTwo.name} ${currentGame.playerTwo.token}`;
     playerTwoScoreDisplay.innerText = `${currentGame.playerTwo.wins} wins`;
   }
+}
+
+function updateSelectStatus(playerSelecting){
+  playerSelectStatus.innerText = `${playerSelecting}: Create new player or select from saved`;
+}
+
+function updateExistingPlayerDisplay(){
+  existingPlayerSelection.value = 'Select a player!';
 }
 
 function changePage(event){
