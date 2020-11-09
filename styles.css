@@ -89,6 +89,14 @@ span{
   margin-top: .75em;
   margin-bottom: .75em;
 }
+
+.preview-token{
+  font-size: 6em;
+  margin-top: .25em;
+  z-index: 1;
+  text-shadow: inset 0 0 .05em;
+  opacity: .5;
+}
 .options-button{
   position: absolute;
   bottom: -8em;

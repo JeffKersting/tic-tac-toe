@@ -15,9 +15,30 @@ var gamePageGrid = document.querySelector(".game-board");
 var gameStateDisplay = document.querySelector(".game-state");
 var optionsButton = document.querySelector(".options-button");
 var optionsMenu = document.querySelector(".options-menu");
+var gameBoardSection = document.querySelectorAll(".game-section");
 var currentGame = new Game();
 
-pageWindow.addEventListener("click", eventTargetIdentifier);
+pageWindow.addEventListener("click", eventHandler);
+
+gameBoardSection.forEach(section => {
+  section.addEventListener('mouseenter', previewToken);
+})
+gameBoardSection.forEach(section => {
+  section.addEventListener('mouseleave', removePreviewToken);
+})
+gameBoardSection.forEach(section => {
+  section.addEventListener('click', gameBoardEvent);
+})
+
+function gameBoardEvent(event){
+  var targetParent = event.target.parentNode;
+  var gameBoardSection = parseInt(event.target.parentNode.id);
+    console.log(gameBoardSection);
+    targetParent.removeEventListener('mouseenter', previewToken);
+    targetParent.removeEventListener('mouseleave', removePreviewToken);
+    currentGame.playerTurn(gameBoardSection);
+}
+
 document.onload = onLoad();
 
 function onLoad(){
@@ -56,7 +77,7 @@ function createPlayerOption(existingPlayer){
 }
 
 
-function eventTargetIdentifier(event){
+function eventHandler(event){
   event.preventDefault();
   var target = event.target;
   if(target.classList.contains("create-new-player")){
@@ -69,15 +90,20 @@ function eventTargetIdentifier(event){
   } else if(target.classList.contains("game-section")){
     currentGame.playerTurn(parseInt(target.id));
   } else if(target.classList.contains("options-button")){
+    removeAllPreviewEvent();
     menuBlur();
   } else if(target.classList.contains("exit-menu")){
+    restorePreviewTokenEvent();
     menuBlur();
   } else if(target.classList.contains("select-players")){
     menuBlur();
+    restorePreviewTokenEvent();
+    currentGame.restartGame();
     changePage();
     existingPlayerSelection.value = 'Select a player!';
   } else if(target.classList.contains("restart-game")){
     menuBlur();
+    restorePreviewTokenEvent();
     currentGame.restartGame();
   }
 }
@@ -127,10 +153,39 @@ function menuBlur(){
   optionsButton.classList.toggle("hidden");
 }
 
-// function menuRemoveBlur(){
-//   optionsMenu.classList.toggle("hidden");
-//   gamePageGrid.classList.remove("blur");
-//   playerOneDisplay.classList.remove("blur");
-//   playerTwoDisplay.classList.remove("blur");
-//   optionsButton.classList.remove("hidden");
-// }
+function previewToken(event){
+  event.preventDefault();
+  if(currentGame.currentTurn === 0){
+    var player = currentGame.playerOne;
+  } else {
+    var player = currentGame.playerTwo
+  }
+  var target = event.target.id;
+  currentGame.gameBoard[target].innerHTML += `<div class=token>${player.token}</div>`
+}
+
+function removePreviewToken(event){
+  event.preventDefault();
+  var target = event.target;
+  if(currentGame.gameBoard[target.id].childNodes.length > 0){
+    currentGame.gameBoard[target.id].childNodes[0].remove();
+  }
+}
+
+function removeAllPreviewEvent(){
+  gameBoardSection.forEach(section => {
+    section.removeEventListener('mouseenter', previewToken);
+  })
+  gameBoardSection.forEach(section => {
+    section.removeEventListener('mouseleave', removePreviewToken);
+  })
+}
+
+function restorePreviewTokenEvent(){
+  gameBoardSection.forEach(section => {
+    section.addEventListener('mouseenter', previewToken);
+  })
+  gameBoardSection.forEach(section => {
+    section.addEventListener('mouseleave', removePreviewToken);
+  })
+}
