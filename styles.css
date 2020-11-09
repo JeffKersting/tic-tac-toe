@@ -86,7 +86,9 @@ button{
     transform: rotate(0deg);
     text-shadow: none;
   }
-  50% {text-shadow: 0 0 .6em lightgreen;}
+  50% {
+    text-shadow: 0 0 .6em lightgreen;
+  }
   100% {
     transform: rotate(360deg);
     text-shadow: none;

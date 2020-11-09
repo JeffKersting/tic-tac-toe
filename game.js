@@ -1,5 +1,5 @@
-class Game{
-  constructor(){
+class Game {
+  constructor() {
     this.currentTurn = 0;
     this.gameBoard = Array.from(document.querySelectorAll('.game-section'));
     this.winConditions = [

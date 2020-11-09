@@ -145,7 +145,7 @@ function updatePlayerDisplay(playerData) {
 function updateGameStatus(player, winCheck) {
   if (winCheck === 0) {
     gameStateDisplay.innerText = `It's a draw! ${player.name}, pick a square to start a new game!`;
-  }else if (winCheck === 1) {
+  } else if (winCheck === 1) {
     var losingPlayer = currentGame.checkLosingPlayer(player);
     gameStateDisplay.innerText = `${player.name} wins! ${losingPlayer.name}, pick a square to start a new game!`;
   } else {
@@ -160,7 +160,6 @@ function updateSelectStatus(playerSelecting) {
 function updateExistingPlayerDisplay() {
   existingPlayerSelection.value = 'Select a player!';
 }
-
 
 function changePage(event) {
   startPage.classList.toggle('hidden');
