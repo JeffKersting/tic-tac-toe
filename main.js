@@ -49,7 +49,7 @@ gameBoardSection.forEach(section => {
 document.onload = onLoad();
 
 function onLoad() {
-  for(var i = 0; i < localStorage.length; i++) {
+  for (var i = 0; i < localStorage.length; i++) {
     var playerKey = localStorage.key(i);
     var existingPlayer = createPlayerFromStorage(playerKey);
     var newOption = createPlayerOption(existingPlayer);
@@ -72,9 +72,9 @@ function createNewPlayer(event) {
   var newPlayer = new Player(Date.now(), newPlayerName.value, newPlayerSymbol.value, 0);
   var newOption = createPlayerOption(newPlayer);
   currentGame.addPlayer(newPlayer);
-  populatePlayerArea(newPlayer);
   newPlayer.saveToStorage();
   existingPlayerSelection.appendChild(newOption);
+  populatePlayerArea(newPlayer);
   updateNewPlayerDisplay();
   return newPlayer;
 }
@@ -141,19 +141,25 @@ function exitMenu(event) {
 
 function selectPlayer(event) {
   event.preventDefault();
+  currentGame.restartGame();
   menuBlur();
   restorePreviewTokenEvent();
   changePage();
   updateExistingPlayerDisplay();
   updateNewPlayerDisplay();
-  currentGame.restartGame();
 }
 
 function restartGame(event) {
   event.preventDefault();
+  currentGame.restartGame();
   menuBlur();
   restorePreviewTokenEvent();
-  currentGame.restartGame();
+}
+
+function clearGameBoard() {
+  for (var i = 0; i < currentGame.gameBoard.length; i++) {
+    currentGame.gameBoard[i].innerHTML = '';
+  }
 }
 
 function populatePlayerArea(playerData) {
@@ -161,7 +167,7 @@ function populatePlayerArea(playerData) {
     updatePlayerDisplay(playerData);
     updateSelectStatus('Player Two');
     changeCurrentTurn();
-    gameStateDisplay.innerText = `${currentGame.playerOne.name}'s Turn!`
+    updateGameStatus(currentGame.playerOne, 2);
   } else {
     updatePlayerDisplay(playerData);
     updateSelectStatus('Player One');
@@ -226,7 +232,7 @@ function menuBlur() {
 }
 
 function winAnimation(winningSections) {
-  for(var i = 0; i < winningSections.length; i++) {
+  for (var i = 0; i < winningSections.length; i++) {
     var toAnimate = winningSections[i];
     currentGame.gameBoard[toAnimate].childNodes[0].classList.add('token-spin');
   }
@@ -264,19 +270,19 @@ function removePreviewToken(event) {
 function removeAllPreviewEvent() {
   gameBoardSection.forEach(section => {
     section.removeEventListener('mouseenter', previewToken);
-  })
+  });
   gameBoardSection.forEach(section => {
     section.removeEventListener('mouseleave', removePreviewToken);
-  })
+  });
 }
 
 function restorePreviewTokenEvent() {
   gameBoardSection.forEach(section => {
     section.addEventListener('mouseenter', previewToken);
-  })
+  });
   gameBoardSection.forEach(section => {
     section.addEventListener('mouseleave', removePreviewToken);
-  })
+  });
 }
 
 function restoreUnusedPreviewToken() {
@@ -291,7 +297,7 @@ function restoreUnusedPreviewToken() {
     if (section.childNodes.length > 0) {
       return;
     } else {
-    section.addEventListener('mouseleave', removePreviewToken);
+      section.addEventListener('mouseleave', removePreviewToken);
     }
   })
 }
