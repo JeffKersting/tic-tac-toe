@@ -1,24 +1,21 @@
-html{
+html {
   background-color: darkgreen;
-  display: flex;
-  flex-direction: column;
   font-family: sans-serif;
   color: white;
   text-align: center;
 }
 
-h1{
-  height: 2em;
-  margin-bottom: 2.5em;
+h1 {
+  height: 4em;
 }
 
-span{
+span {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-button{
+button {
   border-radius: .6em;
   outline: none;
   cursor: pointer;
@@ -28,46 +25,54 @@ button{
   border-style: solid;
   border-radius: 2em;
   border-color: yellow;
+  margin-bottom: 1.5em;
 }
-button:hover{
-  /* background-color: white; */
+
+button:hover {
   color: darkgreen;
   background: rgba(255,255,255,.85);
 }
 
-.start-page{
-  width: 100%;
-  position: absolute;
+select,
+input {
+  margin-bottom: 1.5em;
 }
 
-.welcome-message{
+.start-page {
+  width: 100%;
+  position: absolute;
+  left: 0;
+}
+
+.welcome-message {
   font-size: 4em;
   margin-top: 1em;
   margin-bottom: 1em;
 }
 
-.start-select{
+.start-select {
   border-style: solid;
   width: 15em;
   border-radius: 2em;
   border-color: yellow;
   height: 12em;
+  margin-bottom: 2em;
 }
 
-.game-page{
+.game-page {
   display: grid;
   grid-template-columns: 25% 50% 25%;
   width: 100%;
   position: absolute;
-  margin: auto;
   cursor: pointer;
+  left: 0;
 }
 
-.player-info{
-  height: 100%;
+.player-info {
+  align-self: flex-start;
 }
 
-.game-grid{
+.game-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -75,20 +80,25 @@ button:hover{
   background-color: black;
 }
 
-.game-section{
+.game-section {
   height:11.5em;
   width: 11.5em;
   background-color: darkgreen;
 }
 
-.token{
+.game-section-middle {
+  margin-top: .75em;
+  margin-bottom: .75em;
+}
+
+.token {
   font-size: 6em;
   margin-top: .25em;
   z-index: -1;
   text-shadow: inset 0 0 .05em;
 }
 
-.token-spin{
+.token-spin {
     animation: spin ease 1000ms;
 }
 
@@ -106,34 +116,21 @@ button:hover{
   }
 }
 
-.middle{
-  margin-top: .75em;
-  margin-bottom: .75em;
-}
-
-.preview-token{
-  font-size: 6em;
-  margin-top: .25em;
-  z-index: 1;
-  text-shadow: inset 0 0 .05em;
-  opacity: .5;
-}
-
-.black{
+.black {
   color: black;
 }
 
-.red{
+.red {
   color: red;
 }
 
-.options-button-container{
+.options-button-container {
   position: absolute;
   bottom: -6em;
   justify-self: center;
 }
 
-.options-menu{
+.options-menu {
   position: absolute;
   border-style: solid;
   padding: 1em;
@@ -144,10 +141,10 @@ button:hover{
   background: rgba(0, 100, 0, .75);
 }
 
-.blur{
+.blur {
   filter:blur(5px);
 }
 
-.hidden{
+.hidden {
   display: none;
 }

@@ -23,10 +23,9 @@ var restartGameButton = document.querySelector('.restart-game');
 var gameBoardSection = document.querySelectorAll('.game-section');
 var currentGame = '';
 
-
 createNewButton.addEventListener('click', createNewPlayer);
 chooseExistingButton.addEventListener('click', chooseExisting);
-deleteExistingButton.addEventListener('click', deleteExisting);
+deleteExistingButton.addEventListener('click', deletePlayer);
 optionsButton.addEventListener('click', openOptionsMenu);
 exitMenuButton.addEventListener('click', exitMenu);
 selectPlayerButton.addEventListener('click', selectPlayer);
@@ -43,8 +42,6 @@ gameBoardSection.forEach(section => {
 gameBoardSection.forEach(section => {
   section.addEventListener('click', gameBoardEvent);
 });
-
-
 
 document.onload = onLoad();
 
@@ -75,7 +72,7 @@ function createNewPlayer(event) {
   newPlayer.saveToStorage();
   existingPlayerSelection.appendChild(newOption);
   populatePlayerArea(newPlayer);
-  updateNewPlayerDisplay();
+  clearNewPlayerInput();
   return newPlayer;
 }
 
@@ -96,20 +93,41 @@ function createPlayerOption(existingPlayer) {
   return newOption;
 }
 
-function deletePlayer(playerKey) {
-  var player = JSON.parse(localStorage.getItem(playerKey));
-  var optionToDelete = document.getElementById(playerKey);
-  var existingPlayer = new Player(player.id, player.name, player.token, player.wins);
-  existingPlayer.deleteFromStorage();
-  existingPlayerSelection.removeChild(optionToDelete);
-}
-
 function chooseExisting(event) {
   event.preventDefault();
   var existingPlayer = createPlayerFromStorage(existingPlayerSelection.value);
   currentGame.addPlayer(existingPlayer);
   populatePlayerArea(existingPlayer);
-  updateExistingPlayerDisplay();
+  clearExistingPlayerInput();
+}
+
+function deletePlayer(event) {
+  event.preventDefault();
+  var playerKey = existingPlayerSelection.value;
+  var player = JSON.parse(localStorage.getItem(playerKey));
+  var optionToDelete = document.getElementById(playerKey);
+  var existingPlayer = new Player(player.id, player.name, player.token, player.wins);
+  existingPlayer.deleteFromStorage();
+  existingPlayerSelection.removeChild(optionToDelete);
+  clearExistingPlayerInput();
+}
+
+function populatePlayerArea(playerData) {
+  if (currentGame.currentTurn === 0) {
+    updatePlayerDisplay(playerData);
+    updateSelectStatus('Player Two');
+    changeCurrentTurn();
+    updateGameStatus(currentGame.playerOne, 2);
+  } else {
+    updatePlayerDisplay(playerData);
+    updateSelectStatus('Player One');
+    changeCurrentTurn();
+    changePage();
+  }
+}
+
+function updateSelectStatus(playerSelecting) {
+  playerSelectStatus.innerText = `${playerSelecting}: Create new player or select from saved`;
 }
 
 function gameBoardEvent(event) {
@@ -119,12 +137,6 @@ function gameBoardEvent(event) {
   targetParent.removeEventListener('mouseenter', previewToken);
   targetParent.removeEventListener('mouseleave', removePreviewToken);
   currentGame.playerTurn(gameBoardSection);
-}
-
-function deleteExisting(event) {
-  event.preventDefault();
-  updateExistingPlayerDisplay();
-  deletePlayer(existingPlayerSelection.value);
 }
 
 function openOptionsMenu(event) {
@@ -145,8 +157,8 @@ function selectPlayer(event) {
   menuBlur();
   restorePreviewTokenEvent();
   changePage();
-  updateExistingPlayerDisplay();
-  updateNewPlayerDisplay();
+  clearExistingPlayerInput();
+  clearNewPlayerInput();
 }
 
 function restartGame(event) {
@@ -162,27 +174,22 @@ function clearGameBoard() {
   }
 }
 
-function populatePlayerArea(playerData) {
-  if (currentGame.currentTurn === 0) {
-    updatePlayerDisplay(playerData);
-    updateSelectStatus('Player Two');
-    changeCurrentTurn();
-    updateGameStatus(currentGame.playerOne, 2);
+function updatePlayerDisplay(playerData) {
+  var wins = playerScoreCheck(playerData)
+  if (currentGame.playerOne === playerData) {
+    playerOneNameDisplay.innerText = `${currentGame.playerOne.name} ${currentGame.playerOne.token}`;
+    playerOneScoreDisplay.innerText = `${currentGame.playerOne.wins} ${wins}`;
   } else {
-    updatePlayerDisplay(playerData);
-    updateSelectStatus('Player One');
-    changeCurrentTurn();
-    changePage();
+    playerTwoNameDisplay.innerText = `${currentGame.playerTwo.name} ${currentGame.playerTwo.token}`;
+    playerTwoScoreDisplay.innerText = `${currentGame.playerTwo.wins} ${wins}`;
   }
 }
 
-function updatePlayerDisplay(playerData) {
-  if (currentGame.playerOne === playerData) {
-    playerOneNameDisplay.innerText = `${currentGame.playerOne.name} ${currentGame.playerOne.token}`;
-    playerOneScoreDisplay.innerText = `${currentGame.playerOne.wins} wins`;
+function playerScoreCheck(playerData) {
+  if (playerData.wins === 1) {
+    return 'win';
   } else {
-    playerTwoNameDisplay.innerText = `${currentGame.playerTwo.name} ${currentGame.playerTwo.token}`;
-    playerTwoScoreDisplay.innerText = `${currentGame.playerTwo.wins} wins`;
+    return 'wins';
   }
 }
 
@@ -197,15 +204,11 @@ function updateGameStatus(player, winCheck) {
   }
 }
 
-function updateSelectStatus(playerSelecting) {
-  playerSelectStatus.innerText = `${playerSelecting}: Create new player or select from saved`;
-}
-
-function updateExistingPlayerDisplay() {
+function clearExistingPlayerInput() {
   existingPlayerSelection.value = 'Select a player!';
 }
 
-function updateNewPlayerDisplay() {
+function clearNewPlayerInput() {
   newPlayerName.value = '';
   newPlayerSymbol.value = 'Choose your token';
 }
@@ -292,12 +295,12 @@ function restoreUnusedPreviewToken() {
     } else {
       section.addEventListener('mouseenter', previewToken);
     }
-  })
+  });
   gameBoardSection.forEach(section => {
     if (section.childNodes.length > 0) {
       return;
     } else {
       section.addEventListener('mouseleave', removePreviewToken);
     }
-  })
+  });
 }
