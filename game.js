@@ -75,7 +75,7 @@ class Game {
     this.playerTwoSections = [];
     setTimeout(clearGameBoard, 1200);
     updatePlayerDisplay(winningPlayer);
-    setTimeout(restorePreviewTokenEvent, 1500);
+    setTimeout(restorePreviewTokenEvent, 1200);
   }
 
   restartGame() {
