@@ -23,7 +23,6 @@ var restartGameButton = document.querySelector('.restart-game');
 var gameBoardSection = document.querySelectorAll('.game-section');
 var currentGame = '';
 
-
 createNewButton.addEventListener('click', createNewPlayer);
 chooseExistingButton.addEventListener('click', chooseExisting);
 deleteExistingButton.addEventListener('click', deleteExisting);
@@ -43,8 +42,6 @@ gameBoardSection.forEach(section => {
 gameBoardSection.forEach(section => {
   section.addEventListener('click', gameBoardEvent);
 });
-
-
 
 document.onload = onLoad();
 
@@ -102,6 +99,7 @@ function deletePlayer(playerKey) {
   var existingPlayer = new Player(player.id, player.name, player.token, player.wins);
   existingPlayer.deleteFromStorage();
   existingPlayerSelection.removeChild(optionToDelete);
+  updateExistingPlayerDisplay();
 }
 
 function chooseExisting(event) {
@@ -123,7 +121,6 @@ function gameBoardEvent(event) {
 
 function deleteExisting(event) {
   event.preventDefault();
-  updateExistingPlayerDisplay();
   deletePlayer(existingPlayerSelection.value);
 }
 

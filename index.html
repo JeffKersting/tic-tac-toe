@@ -9,11 +9,10 @@
     <span class="start-page">
       <span class="welcome-message">TIC-TAC-TOE</span>
       <span class="player-create-turn"></span>
-        <p class="player-select-status">Player One: Create new player or select from saved</p>
+      <p class="player-select-status">Player One: Create new player or select from saved</p>
       <form class="start-select" action="index.html" method="post">
         <p>Create a Player!</p>
         <input type="text" id="player-name" placeholder="Enter your name" autocomplete="off">
-        <br><br>
         <select id="player-token">
           <option selected disabled>Choose your token</option>
           <option value=&#9824;> &#9824; Spade</option>
@@ -21,18 +20,14 @@
           <option value=&#9829;> &#9829; Heart</option>
           <option value=&#9830;> &#9830; Diamond</option>
         </select>
-        <br><br>
         <button class="create-new-player">Create Player!</button>
       </form>
-      <br><br>
       <form class="start-select">
         <p>Choose an existing player!</p>
           <select class="select-existing-player">
             <option selected disabled>Select a player!</option>
           </select>
-          <br><br>
           <button class="choose-existing-player">Choose player!</button>
-          <br><br>
           <button class="delete-player">Delete this player</button>
       </form>
     </span>
@@ -48,9 +43,9 @@
           <div class="game-section" id=0></div>
           <div class="game-section" id=1></div>
           <div class="game-section" id=2></div>
-          <div class="game-section middle" id=3></div>
-          <div class="game-section middle" id=4></div>
-          <div class="game-section middle" id=5></div>
+          <div class="game-section game-section-middle" id=3></div>
+          <div class="game-section game-section-middle" id=4></div>
+          <div class="game-section game-section-middle" id=5></div>
           <div class="game-section" id=6></div>
           <div class="game-section" id=7></div>
           <div class="game-section" id=8></div>
@@ -66,9 +61,7 @@
       </div>
       <p class="options-menu hidden">
         <button class="restart-game">Restart game</button>
-        <br><br>
         <button class="select-players">Player select</button>
-        <br><br>
         <button class="exit-menu">Exit menu</button>
       </p>
     </span>
