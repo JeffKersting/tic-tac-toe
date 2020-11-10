@@ -24,7 +24,7 @@ When a user scrolls over a square, a preview of the token will appear. When the 
 
 When a player wins the game the winning squares are animated and a win-state sound is played. Additionally a winning message is displayed, and the player score is updated. The winning message also instructs the losing player to choose a square to begin a new game.
 
-![](./assets/menu.gif) REPLACE
+![](./assets/menu.gif) 
 
 When a user clicks the menu button on the bottom of the game page, an menu appears and a blur effect is applied to all elements behind it. The token preview is disabled at this time. From the menu, users can exit the menu and preview token will be enabled for any squares that do not contain a player token. Users are also able to restart a game, or return to the player creation and selection page.
 
