@@ -1,8 +1,14 @@
 # Tic-Tac-Toe
 
+## Overview 
+
 This project allows users to play tic-tac-toe with their own created players and chosen tokens. Player data, including number of wins, is stored and can be deleted.
 
-It runs in a web browser (Chrome is recommended).
+To install and run: `git clone` this repository from github, `cd` into the directory, and `open index.html`.
+
+Tic-Tac-Toe runs in a web browser (Chrome is recommended).
+
+The javascript, HTML, and CSS on this site were written by Jeff Kersting.
 
 https://github.com/JeffKersting/tic-tac-toe
 
@@ -20,7 +26,7 @@ Users are also able to delete previously created players. Upon deletion, the exi
 
 When a user scrolls over a square, a preview of the token will appear. When the user leaves this square, the preview token will disappear. When a user clicks a square, the token is placed and the preview token hover is disabled on the selected square.
 
-![](./assets/win-state.gif)
+![](./assets/win.gif)
 
 When a player wins the game the winning squares are animated and a win-state sound is played. Additionally a winning message is displayed, and the player score is updated. The winning message also instructs the losing player to choose a square to begin a new game.
 
@@ -28,6 +34,12 @@ When a player wins the game the winning squares are animated and a win-state sou
 
 When a user clicks the menu button on the bottom of the game page, an menu appears and a blur effect is applied to all elements behind it. The token preview is disabled at this time. From the menu, users can exit the menu and preview token will be enabled for any squares that do not contain a player token. Users are also able to restart a game, or return to the player creation and selection page.
 
+### Wins and Challenges
+Wins include successfully implementing the win-state animations and preview token hover effect. There was also a lot of satisfaction derived from applying a blur effect to the background when the menu is opened.
 
-The javascript, HTML, and CSS on this site were written by Jeff Kersting. Special thanks to David Engel for conducting code review.
+The biggest challenge faced during this project was properly checking the win conditions, as `.every` had never previously been used. Additionally, getting the `mouseenter` and `mouseleave` events to be set at appropriate times took much trial and error.
+
+
+Special thanks to David Engel for conducting code review.
+
 Win-state uses sound from freesound: win-state sound by Scrampunk https://freesound.org/people/Scrampunk/
