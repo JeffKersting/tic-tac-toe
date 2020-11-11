@@ -19,7 +19,7 @@ This project contians one HTML file and one CSS file, for the site layout and st
 This project uses three JavaScript files:
 <ul>
   <li>player.js file: handles the instantiation of a player, as well as saving and deleting the instantiated object from local storage.</li>
-  <li>game.js file: handles the instantiation of a game object on page load. It also contains all game logic.</li>
+  <li>game.js file: handles the instantiation of a game object on page load. It also contains all game logic. This file keeps all current game related data separate from the main.js file, which uses that data to manipulate the DOM.</li>
   <li>main.js file: handles all DOM manipulation for displaying player selection turns, player game turns, applying animation, and clearing the game board. It also instantiates a new game object and new instances of players from saved data on page load.</li>
 </ul>
 
